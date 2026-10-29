@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="#151b1f" name="theme-color"/>
+<link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+<meta content="AI Academy: от промптов до работающих образовательных приложений, учебных тренажёров и сайтов. Реальные проекты, работы участников воркшопов и обучение команд." name="description"/>
+<meta content="website" property="og:type"/>
+<meta content="AI Academy — от промптов к работающим продуктам" property="og:title"/>
+<meta content="AI в образовании: реальная практика, интерактивные проекты и обучение команд." property="og:description"/>
+<meta content="assets/og-cover.jpg" property="og:image"/>
+<title>AI Academy — AI в образовании | От промптов к реальным продуктам</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --ink:#131a20;--ink-2:#1e272e;--paper:#d5d6d2;--paper-light:#edece8;--white:#f8f7f4;
+  --silver:#b7bab7;--orange:#e78a64;--orange-deep:#bb5e3b;--peach:#ecc9bf;
+  --dark-muted:#a7aeb2;--light-muted:#5c656c;--line-dark:rgba(237,238,234,.15);
+  --wide:1240px;--display:Manrope,'Arial Black',Arial,sans-serif;--body:'DM Sans',Manrope,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;color:var(--ink);background:var(--paper);font-family:var(--body);font-size:16px;line-height:1.55;overflow-x:hidden}
+body.modal-open{overflow:hidden}
+button,a{-webkit-tap-highlight-color:transparent}
+button{font:inherit}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+:focus-visible{outline:3px solid var(--orange);outline-offset:4px}
+::selection{background:var(--orange);color:#111}
+.container{width:min(var(--wide),calc(100% - 72px));margin-inline:auto}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.top-progress{position:fixed;height:3px;left:0;top:0;width:0;background:var(--orange);z-index:120;transition:width .07s linear}
+.site-header{position:sticky;top:0;z-index:85;background:rgba(21,27,31,.97);color:var(--white);border-bottom:1px solid rgba(255,255,255,.1);backdrop-filter:blur(20px)}
+.navbar{height:76px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.wordmark{display:flex;align-items:center;gap:13px;white-space:nowrap}
+.mark{position:relative;width:33px;height:33px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.76);border-radius:50%;color:#fff;font-size:11px;font-weight:900;letter-spacing:-1px}
+.mark:after{content:"";position:absolute;inset:-6px;border:1px solid rgba(255,255,255,.24);border-radius:50%}
+.wordmark-type{font-family:var(--display);font-size:16px;font-weight:800;letter-spacing:.06em}
+.wordmark-type span{color:var(--orange)}
+.nav-links{display:flex;align-items:center;gap:28px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.09em}
+.nav-links a:not(.nav-cta){color:#d7dbdd;transition:color .2s}
+.nav-links a:hover{color:var(--orange)}
+.nav-cta{display:inline-flex;align-items:center;gap:12px;border:1px solid rgba(231,138,100,.55);padding:12px 16px;border-radius:3px;color:var(--orange);white-space:nowrap;transition:.2s}
+.nav-cta:hover{background:var(--orange);color:#111}
+.nav-toggle{display:none;width:44px;height:42px;border:1px solid rgba(255,255,255,.22);background:none;color:#fff;font-size:20px;cursor:pointer;border-radius:4px}
+.hero{position:relative;isolation:isolate;min-height:min(850px,calc(100svh - 76px));background:linear-gradient(135deg,#aeb0ae 0%,#d4d5d2 58%,#a7a9a8 100%);overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.45;background:radial-gradient(ellipse at 72% 28%,rgba(255,255,255,.75),transparent 42%),radial-gradient(ellipse at 7% 110%,rgba(43,51,59,.29),transparent 42%)}
+.hero:after{content:"";position:absolute;top:-340px;right:15%;width:900px;height:900px;border:1px solid rgba(255,255,255,.27);border-radius:50%;pointer-events:none}
+.hero-inner{min-height:730px;display:grid;grid-template-columns:1fr .98fr;align-items:center;gap:20px;position:relative;padding:75px 0 88px;z-index:1}
+.hero-content{max-width:650px;position:relative;z-index:5}
+.eyebrow{display:inline-flex;align-items:center;gap:12px;text-transform:uppercase;font-size:12px;font-weight:800;letter-spacing:.2em}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--orange-deep);box-shadow:0 0 0 5px rgba(231,138,100,.18)}
+.hero h1{font-family:var(--display);font-size:clamp(62px,6.5vw,104px);font-weight:800;letter-spacing:-.09em;line-height:.98;text-transform:uppercase;margin:27px 0 22px;max-width:740px}
+.hero h1 .future-word{color:#f9f6f0;text-shadow:0 2px 33px rgba(30,38,47,.23)}
+.hero h1 small{display:block;font-size:clamp(18px,2.1vw,31px);letter-spacing:-.04em;line-height:1.2;margin-bottom:19px;font-weight:700;text-transform:none}
+.hero-lead{max-width:590px;font-size:clamp(17px,1.7vw,21px);line-height:1.57;font-weight:600;color:#27313a;margin:0}
+.hero-chips{display:flex;gap:9px;flex-wrap:wrap;margin-top:24px}
+.hero-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(23,32,38,.22);background:rgba(255,255,255,.14);padding:7px 11px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.hero-actions{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin-top:32px}
+.button{display:inline-flex;justify-content:center;align-items:center;gap:15px;min-height:51px;padding:14px 22px;border:1px solid transparent;font-size:12px;letter-spacing:.07em;text-transform:uppercase;font-weight:800;transition:transform .22s,background .22s,border .22s;cursor:pointer;text-align:center}
+.button:hover{transform:translateY(-3px)}
+.button-dark{color:var(--white);background:var(--ink)}
+.button-dark:hover{background:#303d45}
+.button-stroke{border-color:rgba(19,26,32,.52);background:rgba(255,255,255,.08)}
+.button-stroke:hover{background:rgba(255,255,255,.36)}
+.button-orange{background:var(--orange);color:#121516}
+.button-orange:hover{background:#f5a680}
+.button-outline-light{border:1px solid rgba(236,240,239,.48);color:#f4f4ef;background:transparent}
+.button-outline-light:hover{border-color:var(--orange);color:var(--orange)}
+.hero-art{height:650px;position:relative;align-self:stretch;display:flex;align-items:center;justify-content:center}
+.helmet{width:min(670px,115%);height:auto;object-fit:contain;mix-blend-mode:multiply;mask-image:radial-gradient(ellipse at 49% 47%,#000 37%,rgba(0,0,0,.94) 53%,transparent 78%);filter:saturate(1.28) contrast(1.04);transform:translateX(5%) translateY(2%);animation:helmetFloat 7s ease-in-out infinite}
+@keyframes helmetFloat{0%,100%{transform:translate(5%,2%)}50%{transform:translate(5%,-.7%)}}
+.orbit{position:absolute;aspect-ratio:1;border:1px solid rgba(255,255,255,.8);border-radius:50%;width:88%;left:6%;top:3%;pointer-events:none}
+.orbit.two{width:107%;left:-1%;top:-7%;border-color:rgba(255,255,255,.42)}
+.orbit:before{content:"";position:absolute;inset:-7px 50% auto auto;width:9px;height:9px;background:var(--orange);border-radius:50%}
+.orbit-line{position:absolute;width:150%;height:1px;background:rgba(255,255,255,.55);transform:rotate(-37deg);top:52%;left:-15%;pointer-events:none}
+.art-label{position:absolute;right:4%;top:6%;color:#414a4e;font-size:11px;font-weight:800;letter-spacing:.25em;line-height:1.8;text-align:right;z-index:2}
+.art-label strong{display:block;font-size:15px;letter-spacing:.15em}
+.hero-index{position:absolute;bottom:35px;right:0;left:0;display:flex;justify-content:space-between;align-items:center;color:#394348;font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase}
+.hero-index i{display:block;width:104px;height:1px;background:#394348;opacity:.55}
+.hero-ghost{position:absolute;bottom:-.11em;left:-.04em;font-family:var(--display);font-size:clamp(120px,19vw,310px);letter-spacing:-.1em;line-height:1;font-weight:800;white-space:nowrap;color:rgba(249,246,240,.14);pointer-events:none;z-index:0}
+.ticker{background:var(--ink);color:#f2f0eb;border-bottom:1px solid rgba(255,255,255,.14);overflow:hidden}
+.ticker-inner{display:flex;gap:34px;white-space:nowrap;align-items:center;min-height:53px;font-size:12px;font-weight:800;letter-spacing:.23em;text-transform:uppercase;animation:marquee 29s linear infinite;width:max-content}
+.ticker-inner i{font-style:normal;color:var(--orange);font-size:19px}
+@keyframes marquee{to{transform:translateX(-50%)}}
+.section{position:relative;padding:115px 0}
+.section.dark{background:var(--ink);color:var(--white)}
+.section.light{background:var(--paper-light)}
+.section.silver{background:#d1d2cf}
+.section-number{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.27em;text-transform:uppercase;margin-bottom:16px;color:var(--orange-deep)}
+.section.dark .section-number{color:var(--orange)}
+.section-title{font-family:var(--display);font-size:clamp(39px,5.2vw,72px);line-height:1.09;letter-spacing:-.075em;font-weight:800;margin:0 0 20px;text-transform:uppercase}
+.section-intro{font-size:clamp(15px,1.4vw,19px);line-height:1.66;color:var(--light-muted);max-width:700px;margin:0}
+.dark .section-intro{color:var(--dark-muted)}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:28px;margin-bottom:45px}
+.section-head .meta{max-width:260px;font-size:11px;line-height:1.7;font-weight:800;color:#899196;text-transform:uppercase;letter-spacing:.17em}
+.section-head .meta.line{border-left:1px solid rgba(255,255,255,.24);padding-left:19px}
+.statement-section{padding:105px 0 125px;overflow:hidden}
+.statement-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.statement-type{font-family:var(--display);font-size:clamp(38px,4.4vw,65px);line-height:1.15;letter-spacing:-.07em;font-weight:800;text-transform:uppercase}
+.statement-type em{font-style:normal;color:var(--orange)}
+.statement-card{border:1px solid rgba(255,255,255,.19);padding:34px;background:rgba(255,255,255,.03);position:relative}
+.statement-card:before,.statement-card:after{content:"";position:absolute;width:16px;height:16px;border:1px solid var(--orange)}
+.statement-card:before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.statement-card:after{bottom:-1px;right:-1px;border-top:0;border-left:0}
+.statement-card p{font-size:17px;line-height:1.75;color:#cdd0ce;margin:0}
+.statement-card strong{color:white}
+.fact-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:48px;border:1px solid var(--line-dark)}
+.fact{padding:24px 28px;border-right:1px solid var(--line-dark)}
+.fact:last-child{border-right:0}
+.fact strong{display:block;font-size:45px;font-weight:800;letter-spacing:-.09em;line-height:1;color:var(--orange)}
+.fact span{display:block;margin-top:11px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.11em;color:#b8bdbe}
+.portfolio-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.project-card{background:#222b31;border:1px solid rgba(255,255,255,.1);overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s}
+.project-card:hover{transform:translateY(-6px);border-color:rgba(231,138,100,.75);box-shadow:0 18px 35px rgba(0,0,0,.17)}
+.project-cover{position:relative;overflow:hidden;aspect-ratio:1.58;background:#171e24}
+.project-cover img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.project-card:hover .project-cover img{transform:scale(1.035)}
+.project-top{position:absolute;top:17px;left:17px;color:#f6f1ec;font-size:11px;font-weight:800;letter-spacing:.12em;background:rgba(12,16,20,.6);padding:7px 11px;backdrop-filter:blur(6px)}
+.project-body{padding:27px 27px 25px}
+.project-body h3{font-family:var(--display);font-size:25px;letter-spacing:-.055em;line-height:1.22;margin:0 0 11px}
+.project-body p{color:#b2b7ba;font-size:14px;line-height:1.65;min-height:48px;margin:0 0 20px}
+.project-actions{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding-top:17px;border-top:1px solid rgba(255,255,255,.15)}
+.project-actions button,.project-actions a{border:0;background:none;padding:4px 0;color:var(--orange);cursor:pointer;font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.project-actions a{color:#e6e7e5}
+.project-actions a:hover,.project-actions button:hover{text-decoration:underline}
+.student-controls{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:27px 0 32px}
+.filter{border:1px solid rgba(25,32,36,.26);background:none;padding:11px 18px;cursor:pointer;font-size:11px;text-transform:uppercase;letter-spacing:.09em;font-weight:800;color:#34404a;transition:.2s}
+.filter:hover,.filter.active{background:var(--ink);color:#f2f0e9;border-color:var(--ink)}
+.student-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px}
+.student-card{border:1px solid rgba(20,26,33,.13);background:#f3f2ee;transition:transform .28s,box-shadow .28s;display:flex;flex-direction:column;min-width:0}
+.student-card[hidden]{display:none!important}
+.student-card:hover{transform:translateY(-6px);box-shadow:0 18px 30px rgba(14,21,26,.11)}
+.student-cover{position:relative;aspect-ratio:1.4;overflow:hidden;background:#202931}
+.student-cover img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.student-card:hover img{transform:scale(1.04)}
+.student-index{position:absolute;top:12px;left:12px;color:white;background:rgba(19,26,32,.75);padding:7px 10px;font-size:10px;font-weight:900;letter-spacing:.16em}
+.student-body{padding:20px;display:flex;flex:1;flex-direction:column;gap:7px}
+.student-body .type{font-size:10px;letter-spacing:.14em;color:#8b624f;font-weight:800;text-transform:uppercase}
+.student-body h3{font-size:19px;font-family:var(--display);letter-spacing:-.04em;margin:0;line-height:1.26}
+.student-body p{font-size:13px;line-height:1.55;color:#677077;margin:0 0 12px}
+.student-links{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding-top:13px;border-top:1px solid #d8d9d5}
+.student-links button,.student-links a{border:0;background:none;cursor:pointer;font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:800;padding:0;color:#914e34}
+.student-links a{color:#1d282d}
+.student-links a:hover,.student-links button:hover{text-decoration:underline}
+.disclaimer{display:flex;align-items:start;gap:12px;margin-top:25px;font-size:13px;line-height:1.65;color:#525b61}
+.disclaimer b{display:grid;place-items:center;flex:none;border:1px solid #9b9e9b;border-radius:50%;width:24px;height:24px;font-size:12px}
+.case-section{padding-top:112px;padding-bottom:112px}
+.case-layout{display:grid;grid-template-columns:.85fr 1.15fr;gap:50px;align-items:center}
+.case-label{display:inline-block;border:1px solid rgba(239,241,237,.27);padding:9px 13px;color:#e9a98c;letter-spacing:.16em;font-size:11px;font-weight:800;text-transform:uppercase;margin-bottom:27px}
+.case-copy h2{font-size:clamp(44px,5vw,76px);line-height:1.03;letter-spacing:-.08em;font-weight:800;font-family:var(--display);margin:0 0 22px;text-transform:uppercase}
+.case-copy h2 em{font-style:normal;color:#e5b4a0}
+.case-copy p{font-size:17px;color:#bdc1c2;line-height:1.75;margin:0 0 25px}
+.case-list{display:grid;gap:12px;margin:0 0 30px;padding:0;list-style:none}
+.case-list li{display:flex;align-items:center;gap:11px;font-size:13px;font-weight:700;color:#e4e6e4}
+.case-list li:before{content:"+";color:var(--orange);font-size:18px}
+.case-window{padding:9px;background:#343d43;box-shadow:0 40px 90px rgba(0,0,0,.33);border:1px solid rgba(255,255,255,.23);transform:perspective(900px) rotateY(-5deg);transition:transform .5s}
+.case-window:hover{transform:perspective(900px) rotateY(0deg)}
+.window-toolbar{height:28px;display:flex;align-items:center;gap:6px;padding-left:11px;background:#242d33}
+.window-toolbar i{width:7px;height:7px;background:#838d91;border-radius:50%}
+.window-toolbar span{margin-left:auto;margin-right:12px;font-size:10px;color:#bbc3c6;letter-spacing:.1em}
+.case-window img{width:100%;aspect-ratio:1.76;object-fit:cover}
+.method-section{padding:110px 0 116px}
+.method-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:80px;align-items:start}
+.method-side{position:sticky;top:124px}
+.method-side h2{max-width:600px}
+.method-side p{max-width:500px}
+.method-steps{display:grid;gap:10px}
+.method-step{display:grid;grid-template-columns:76px 1fr;gap:17px;align-items:center;min-height:124px;border:1px solid rgba(19,26,32,.2);padding:20px;background:rgba(255,255,255,.18);transition:transform .25s,background .25s}
+.method-step:hover{background:#e7e5e1;transform:translateX(5px)}
+.method-no{font-family:var(--display);font-size:43px;letter-spacing:-.09em;font-weight:800;color:var(--orange-deep);line-height:1}
+.method-step h3{font-family:var(--display);margin:0 0 5px;font-size:20px;line-height:1.3;letter-spacing:-.045em}
+.method-step p{font-size:13px;line-height:1.55;margin:0;color:#586167}
+.method-endnote{margin-top:23px;padding:21px 23px;border-left:3px solid var(--orange-deep);background:#ebeae6;font-size:16px;line-height:1.65;font-weight:600}
+.offer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.offer-card{min-height:330px;display:flex;flex-direction:column;padding:29px;border:1px solid rgba(255,255,255,.17);background:#20292f;position:relative;overflow:hidden;transition:transform .27s,border-color .27s}
+.offer-card:hover{transform:translateY(-5px);border-color:rgba(231,138,100,.55)}
+.offer-card:before{content:"";position:absolute;right:-100px;top:-120px;width:200px;height:200px;border-radius:50%;border:1px solid rgba(255,255,255,.14)}
+.offer-icon{font-family:var(--display);font-size:12px;color:var(--orange);font-weight:800;letter-spacing:.2em}
+.offer-card h3{font-family:var(--display);font-size:25px;letter-spacing:-.055em;line-height:1.25;margin:40px 0 18px;max-width:285px}
+.offer-card p{font-size:15px;line-height:1.7;color:#b1babd;margin:0 0 20px}
+.offer-output{margin-top:auto;padding-top:17px;border-top:1px solid rgba(255,255,255,.13);font-size:12px;font-weight:800;color:#e8e9e6}
+.offer-note{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:26px;border:1px solid rgba(255,255,255,.19);padding:23px 27px}
+.offer-note strong{display:block;color:var(--orange);font-size:11px;text-transform:uppercase;letter-spacing:.15em;margin-bottom:6px}
+.offer-note p{color:#c9cccb;font-size:15px;margin:0}
+.contact-section{background:radial-gradient(ellipse at 77% 60%,rgba(231,138,100,.22),transparent 43%),linear-gradient(135deg,#bfc0bd,#e7e5e1);padding:108px 0 110px;overflow:hidden}
+.contact-layout{display:grid;grid-template-columns:1.35fr .65fr;gap:66px;align-items:center}
+.contact-section h2{font-family:var(--display);font-size:clamp(48px,5.5vw,80px);font-weight:800;line-height:1.04;letter-spacing:-.078em;text-transform:uppercase;margin:0 0 20px}
+.contact-section h2 em{font-style:normal;color:#af6243}
+.contact-section p{max-width:660px;font-size:18px;line-height:1.65;color:#505c62;margin:0}
+.contact-card{border:1px solid rgba(20,28,32,.4);padding:30px;background:rgba(250,249,247,.55);box-shadow:0 25px 60px rgba(15,21,27,.09)}
+.contact-card span{font-size:11px;letter-spacing:.17em;font-weight:800;text-transform:uppercase;color:#a35f44}
+.contact-card h3{font-family:var(--display);font-size:27px;letter-spacing:-.065em;line-height:1.2;margin:16px 0 23px}
+.contact-card .button{width:100%}
+.contact-social{display:flex;gap:17px;flex-wrap:wrap;margin-top:21px;font-size:13px;text-transform:uppercase;font-weight:800;letter-spacing:.08em}
+.contact-social a:hover{text-decoration:underline}
+.site-footer{background:#11171b;color:#f1f1eb;padding:28px 0}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;font-size:12px;color:#aeb6b6}
+.footer-inner b{color:#f2f1ef;font-size:13px}
+.footer-inner .sources{max-width:640px;text-align:right}
+.reveal{opacity:0;transform:translateY(25px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+/* The five original DataBoom character filenames remain in JS. If those files
+   exist next to index.html, the original per-section character animation returns. */
+.floating-guide{position:fixed;right:22px;bottom:18px;z-index:65;display:flex;align-items:end;gap:10px;max-width:min(400px,calc(100vw - 35px));filter:drop-shadow(0 18px 18px rgba(0,0,0,.22))}
+.guide-bubble{max-width:252px;position:relative;background:rgba(22,30,34,.94);border:1px solid rgba(231,138,100,.55);color:#fff;padding:15px 39px 15px 17px;font-size:12px;font-weight:800;letter-spacing:.01em;line-height:1.45;backdrop-filter:blur(14px)}
+.guide-close{position:absolute;top:5px;right:5px;background:none;color:#e9a78b;border:0;width:28px;height:28px;cursor:pointer;font-size:18px}
+.guide-avatar{position:relative;width:95px;height:110px;flex:none;display:grid;place-items:center;border:1px solid rgba(255,255,255,.36);background:linear-gradient(160deg,rgba(222,225,220,.9),rgba(99,111,116,.8));overflow:hidden;animation:guideFloat 3.8s ease-in-out infinite;clip-path:polygon(16% 0,100% 0,100% 80%,81% 100%,0 100%,0 16%)}
+.guide-avatar img[hidden],.guide-reopen img[hidden]{display:none!important}
+.guide-avatar img{position:relative;width:94px;height:106px;object-fit:contain;z-index:1;filter:drop-shadow(0 7px 7px rgba(0,0,0,.16))}
+.guide-fallback{width:68px;height:68px;border:2px solid #222b31;border-radius:48% 50% 38% 38%;background:#dde0dc;display:grid;place-items:center;color:#101b21;font-weight:900;font-size:23px;position:relative;box-shadow:inset -11px -9px 0 rgba(167,176,175,.65)}
+.guide-fallback:after{content:"";position:absolute;right:-7px;top:18px;width:13px;height:29px;background:var(--orange);transform:rotate(-12deg);border-radius:2px}
+.guide-reopen{display:none;width:76px;height:76px;place-items:center;border:1px solid rgba(231,138,100,.6);background:#cdd0cc;cursor:pointer;overflow:hidden;padding:3px}
+.guide-reopen img{width:70px;height:70px;object-fit:contain}
+.guide-reopen .guide-fallback{width:55px;height:55px;font-size:18px}
+.floating-guide.is-collapsed .guide-bubble,.floating-guide.is-collapsed .guide-avatar{display:none}
+.floating-guide.is-collapsed .guide-reopen{display:grid}
+@keyframes guideFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.mobile-cta{display:none}
+.preview-dialog{position:fixed;inset:0;margin:auto;width:min(1050px,calc(100% - 28px));height:min(790px,calc(100% - 38px));padding:0;color:#fff;border:1px solid #6c787a;background:#192127;box-shadow:0 40px 120px rgba(0,0,0,.52)}
+.preview-dialog::backdrop{background:rgba(9,13,16,.86);backdrop-filter:blur(8px)}
+.preview-top{height:70px;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:10px 18px;border-bottom:1px solid rgba(255,255,255,.19)}
+.preview-top h2{font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.04em;margin:0}
+.preview-actions{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.preview-top a{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--orange)}
+.preview-close{width:38px;height:38px;color:white;border:1px solid #6f7879;background:none;cursor:pointer;font-size:21px}
+.preview-dialog iframe{width:100%;height:calc(100% - 115px);display:block;border:0;background:white}
+.preview-bottom{height:45px;padding:11px 18px;display:flex;align-items:center;font-size:12px;line-height:1.2;color:#b9bec0;background:#202b30}
+@media (max-width:1120px){.nav-links{gap:16px}.student-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.hero h1{font-size:clamp(50px,6.4vw,80px)}.hero-inner{min-height:650px}.hero-art{height:570px}.statement-grid{gap:45px}}
+@media (max-width:850px){.container{width:calc(100% - 38px)}.navbar{height:67px}.nav-toggle{display:block}.nav-links{display:none;position:absolute;top:67px;left:0;right:0;background:#1e272d;flex-direction:column;padding:20px 24px 25px;gap:0;align-items:stretch;box-shadow:0 20px 30px rgba(0,0,0,.2)}.nav-links.show{display:flex}.nav-links a{padding:13px 5px}.nav-cta{margin-top:10px;justify-content:center}.hero-inner{grid-template-columns:1fr;gap:0;padding:58px 0 80px;min-height:0}.hero h1{max-width:740px;font-size:clamp(58px,10vw,82px)}.hero-content{z-index:5}.hero-art{height:465px;margin-top:-20px;opacity:.9}.helmet{max-width:510px}.orbit{width:67%;left:15%;top:0}.orbit.two{width:76%;left:11%;top:-6%}.art-label{right:15%}.hero-index{bottom:24px}.section{padding:85px 0}.section-head{align-items:start}.portfolio-grid,.case-layout,.method-grid,.contact-layout,.statement-grid{grid-template-columns:1fr}.statement-grid{gap:35px}.case-window{max-width:690px}.method-side{position:static}.offer-grid{grid-template-columns:repeat(2,1fr)}.student-grid{grid-template-columns:repeat(2,1fr)}.contact-layout{gap:30px}.contact-card{max-width:520px}.footer-inner .sources{text-align:left}}
+@media (max-width:560px){body{padding-bottom:72px}.container{width:calc(100% - 28px)}.wordmark-type{font-size:14px}.hero-inner{padding:44px 0 55px}.hero h1{font-size:clamp(52px,12.8vw,76px);margin-top:24px}.hero h1 small{font-size:17px}.hero-lead{font-size:16px}.hero-chips{gap:7px}.hero-chip{font-size:10px}.hero-actions{align-items:stretch;flex-direction:column}.hero-actions .button{width:100%}.hero-art{height:340px;margin:-8px 0 0}.helmet{width:103%;max-width:390px}.orbit{width:85%;left:8%;top:-5%}.orbit.two{width:99%;left:2%;top:-11%}.art-label{right:3%;font-size:9px}.hero-index{font-size:9px}.hero-index i{width:35px}.section{padding:69px 0}.section-title{font-size:clamp(36px,9vw,49px)}.statement-type{font-size:clamp(36px,9vw,51px)}.statement-card{padding:21px}.statement-card p{font-size:15px}.fact-row{grid-template-columns:repeat(3,minmax(0,1fr))}.fact{padding:17px 10px}.fact strong{font-size:34px}.fact span{font-size:9px;letter-spacing:.04em}.section-head{display:block;margin-bottom:26px}.section-head .meta{display:none}.portfolio-grid,.student-grid,.offer-grid,.offer-note{grid-template-columns:1fr}.student-grid{gap:15px}.student-cover{aspect-ratio:1.66}.project-body{padding:21px}.project-body h3{font-size:23px}.project-body p{min-height:auto}.student-controls{margin:25px 0}.filter{padding:9px 12px;font-size:10px}.case-copy h2{font-size:54px}.case-window{transform:none}.case-window:hover{transform:none}.method-step{grid-template-columns:54px 1fr;padding:17px;min-height:105px}.method-no{font-size:34px}.offer-card{min-height:270px}.contact-section{padding:65px 0}.contact-section h2{font-size:clamp(43px,10vw,57px)}.contact-card{padding:23px}.floating-guide{right:14px;bottom:calc(85px + env(safe-area-inset-bottom));max-width:calc(100vw - 28px)}.guide-avatar{width:69px;height:79px}.guide-avatar img{width:65px;height:78px}.guide-fallback{width:46px;height:46px;font-size:16px}.guide-bubble{max-width:155px;font-size:11px;padding:11px 29px 11px 10px}.guide-reopen{width:58px;height:58px}.guide-reopen img{width:50px;height:50px}.guide-reopen .guide-fallback{width:44px;height:44px}.mobile-cta{display:flex;align-items:center;justify-content:center;position:fixed;bottom:0;left:0;right:0;min-height:62px;z-index:70;background:#da8b69;color:#131a20;font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;text-align:center;box-shadow:0 -7px 35px rgba(0,0,0,.14);padding-bottom:env(safe-area-inset-bottom)}.preview-top{padding-inline:10px}.preview-top h2{font-size:13px}.preview-top a{font-size:10px}.preview-actions{gap:6px}.preview-bottom{font-size:10px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1!important;transform:none!important}}
+
+/* AI ACADEMY — OCT 2026 / FOUR PHOTO BACKGROUNDS */
+.hero{
+  background-image:linear-gradient(90deg,rgba(214,216,213,.33) 0%,rgba(214,216,213,.12) 48%,rgba(214,216,213,0) 100%),url("assets/main.webp");
+  background-color:#c6c7c5;background-size:cover;background-position:center 50%;
+}
+.hero:before{opacity:.19;background:radial-gradient(ellipse at 17% 83%,rgba(255,255,255,.35),transparent 45%)}
+.hero .hero-art{visibility:hidden;pointer-events:none}
+.hero h1 .future-word{color:#bd613e;text-shadow:0 1px 2px rgba(247,238,228,.16)}
+.hero h1{text-shadow:0 2px 9px rgba(239,239,235,.4)}
+.hero-ghost{color:rgba(241,238,233,.21)}
+
+#why.statement-section{
+  background-image:linear-gradient(90deg,rgba(16,22,27,.96) 0%,rgba(16,22,27,.88) 46%,rgba(16,22,27,.58) 70%,rgba(16,22,27,.3) 100%),url("assets/pipes.webp");
+  background-color:#151b20;background-size:cover;background-position:center center;
+}
+#why .statement-card{background:rgba(13,19,23,.77);border-color:rgba(239,239,235,.22);backdrop-filter:blur(13px)}
+#why .fact-row{background:rgba(15,22,27,.68);backdrop-filter:blur(16px)}
+#why .fact{background:rgba(255,255,255,.025)}
+
+#mywork{background-color:#151b20;isolation:isolate;overflow:hidden}
+#mywork:before{
+  content:"";position:absolute;z-index:0;inset:0 0 auto;height:720px;
+  background-image:linear-gradient(90deg,rgba(15,23,27,.95),rgba(15,23,27,.68) 52%,rgba(15,23,27,.18)),linear-gradient(0deg,#151b20 0%,rgba(21,27,32,.06) 72%),url("assets/lab.webp");
+  background-size:cover;background-position:center 48%;pointer-events:none;
+}
+#mywork .container{position:relative;z-index:1}
+#mywork .section-head{min-height:345px;align-items:center}
+#mywork .section-head .meta{background:rgba(20,28,32,.68);border-left-color:rgba(237,242,240,.35);padding:15px 20px}
+#mywork .section-intro{color:#e3e5e4;text-shadow:0 1px 11px rgba(10,18,22,.9)}
+
+#academy{background-color:#edece8;isolation:isolate;overflow:hidden}
+#academy:before{
+  content:"";position:absolute;z-index:0;inset:0 0 auto;height:700px;
+  background-image:linear-gradient(90deg,rgba(237,236,232,.45) 0%,rgba(237,236,232,.14) 64%,rgba(237,236,232,0)),linear-gradient(0deg,#edece8 0%,rgba(237,236,232,.1) 70%),url("assets/academy.webp");
+  background-size:cover;background-position:center 40%;pointer-events:none;
+}
+#academy .container{position:relative;z-index:1}
+#academy .section-head{min-height:360px;align-items:center}
+#academy .section-intro{color:#3e4448;text-shadow:0 0 12px rgba(237,236,232,.62)}
+#academy .section-head .meta{background:rgba(237,236,232,.54);padding:17px 18px;color:#595f62;backdrop-filter:blur(4px)}
+
+/* Project cards are now reliable text-first, live linked previews. */
+.poster-link{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:space-between;padding:29px 30px 26px;width:100%;height:100%;min-height:210px;overflow:hidden;isolation:isolate}
+.poster-link:before{content:"";position:absolute;z-index:-1;inset:-30%;pointer-events:none;background:radial-gradient(circle at 82% 66%,rgba(232,139,100,.32),transparent 28%),radial-gradient(circle at 20% 8%,rgba(195,203,203,.14),transparent 42%);transition:transform .5s}
+.poster-link:after{content:"";position:absolute;z-index:-1;width:70%;aspect-ratio:1;right:-18%;top:-42%;border:1px solid rgba(244,233,225,.24);border-radius:50%;box-shadow:0 0 0 35px rgba(255,255,255,.025),0 0 0 84px rgba(255,255,255,.018)}
+.poster-link:hover:before{transform:scale(1.14)}
+.poster-link:hover .poster-arrow{transform:translate(4px,-4px);background:var(--orange);color:#151b20}
+.poster-kicker{display:block;font-size:10px;letter-spacing:.2em;font-weight:900;text-transform:uppercase;color:#e8a88a}
+.poster-title{position:relative;display:block;font-family:var(--display);font-size:clamp(26px,3vw,43px);line-height:1.04;letter-spacing:-.065em;font-weight:800;max-width:84%;color:#f3efea;text-transform:uppercase;text-wrap:balance}
+.poster-arrow{position:absolute;bottom:25px;right:26px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.43);height:47px;width:47px;color:#fff;font-size:23px;transition:.2s}
+.project-cover{aspect-ratio:1.68;background:linear-gradient(145deg,#323d42 0%,#1c272e 65%,#161c22 100%)}
+.project-top{position:absolute;z-index:2;top:15px;right:17px;left:auto;pointer-events:none;background:rgba(10,16,20,.42);color:#c7c5c0;font-size:9px}
+.project-cover:nth-child(2n) .poster-link{background:linear-gradient(125deg,rgba(59,71,77,.37),rgba(10,20,25,.1))}
+.project-card:nth-child(2) .poster-link:before{background:radial-gradient(circle at 80% 30%,rgba(106,184,198,.21),transparent 35%),radial-gradient(circle at 8% 80%,rgba(231,138,100,.24),transparent 35%)}
+.project-card:nth-child(3) .poster-link:before{background:radial-gradient(circle at 25% 20%,rgba(231,138,100,.22),transparent 32%),radial-gradient(circle at 75% 90%,rgba(231,138,100,.12),transparent 33%)}
+.project-card:nth-child(4) .poster-link:before{background:radial-gradient(circle at 75% 70%,rgba(153,192,186,.26),transparent 32%),radial-gradient(circle at 15% 15%,rgba(231,138,100,.24),transparent 35%)}
+.student-cover{aspect-ratio:1.3;background:linear-gradient(145deg,#36434a,#1b272c)}
+.student-cover .poster-link{padding:21px 17px 17px;min-height:180px}
+.student-cover .poster-kicker{font-size:9px;max-width:78%;line-height:1.5}
+.student-cover .poster-title{font-size:clamp(21px,2.1vw,30px);max-width:95%;line-height:1.1;letter-spacing:-.05em}
+.student-cover .poster-arrow{width:32px;height:32px;font-size:18px;bottom:16px;right:16px}
+.student-index{right:9px;left:auto;top:9px;background:rgba(11,18,22,.38);font-size:8px;z-index:3;pointer-events:none}
+.student-card:nth-child(3n+1) .student-cover{background:linear-gradient(125deg,#37444a,#1e262c)}
+.student-card:nth-child(3n+2) .student-cover{background:linear-gradient(125deg,#293b3e,#1a292e)}
+.student-card:nth-child(3n) .student-cover{background:linear-gradient(125deg,#3a3537,#25272e)}
+.student-links a{font-size:11px;color:#963e24}
+.student-body{padding:16px 18px 18px}
+.student-body p{margin-bottom:7px}
+
+/* AURELIA: authentic URL-first featured project. Optional iframe opens separately. */
+.case-window{transform:perspective(900px) rotateY(-3deg)}
+.case-site-preview{position:relative;aspect-ratio:1.76;overflow:hidden;isolation:isolate;background:linear-gradient(125deg,#282629 0%,#4b3733 55%,#85654d 100%)}
+.case-site-preview:before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse at 80% 25%,rgba(247,217,174,.26),transparent 43%),linear-gradient(115deg,rgba(250,213,175,.08),transparent 62%)}
+.case-site-preview:after{content:"";position:absolute;width:75%;height:120%;border:1px solid rgba(238,218,204,.35);border-radius:50%;right:-20%;top:-10%;pointer-events:none}
+.case-site-link{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;min-height:100%;gap:16px;padding:44px;color:#faf6ed}
+.case-site-kicker{color:#e9bd9f;font-size:10px;letter-spacing:.22em;font-weight:800}
+.case-site-brand{font-family:Georgia,serif;font-size:clamp(49px,6vw,92px);line-height:1;letter-spacing:.09em;font-weight:400;color:#fff8ef}
+.case-site-caption{font-size:13px;color:#e8cfc0;letter-spacing:.04em}
+.case-site-cta{display:inline-block;align-self:flex-start;background:#e9bb9d;color:#29242a;font-size:11px;text-transform:uppercase;letter-spacing:.1em;font-weight:900;padding:12px 17px}
+.case-open-preview{width:100%;display:block;cursor:pointer;border:0;border-top:1px solid rgba(255,255,255,.12);background:#29333a;color:#e4c6b5;text-align:center;font:800 11px var(--body);letter-spacing:.08em;text-transform:uppercase;padding:12px 10px;transition:background .2s}
+.case-open-preview:hover{background:#3e4a50}
+
+@media(max-width:1120px){
+  .hero{background-position:59% center}
+  #academy .section-head{min-height:300px}
+}
+@media(max-width:850px){
+  .hero{background-image:linear-gradient(130deg,#cfd1ce,#e1e2de);background-position:center}
+  .hero .hero-art{visibility:visible;display:block;height:390px;margin:25px 0 0;background-image:linear-gradient(90deg,rgba(211,214,211,.65),rgba(211,214,211,0) 33%),url("assets/main.webp");background-size:cover;background-position:70% center;mask-image:linear-gradient(180deg,transparent 0%,#000 9%,#000 88%,transparent 100%)}
+  .hero-inner{padding-bottom:65px}
+  #why.statement-section{background-position:70% center}
+  #mywork:before{height:570px;background-position:65% center}
+  #mywork .section-head{min-height:300px}
+  #academy:before{height:590px;background-position:64% center}
+  #academy .section-head{min-height:290px}
+  #academy .section-head .meta{display:none}
+  .student-cover .poster-link{min-height:190px}
+}
+@media(max-width:560px){
+  .hero{background:linear-gradient(145deg,#cdd0cc,#e3e3df 75%,#cecfcb)}
+  .hero .hero-art{height:270px;margin:6px -14px -12px;background-position:74% center}
+  .hero h1{font-size:clamp(46px,11.6vw,65px);line-height:1.04}
+  .hero h1 .future-word{color:#b45737}
+  #why.statement-section{background-image:linear-gradient(90deg,rgba(16,22,27,.94),rgba(16,22,27,.78)),url("assets/pipes.webp");background-position:70% center}
+  #why .statement-card{padding:22px}
+  #mywork:before{height:580px;background-image:linear-gradient(90deg,rgba(15,23,27,.92),rgba(15,23,27,.70)),linear-gradient(0deg,#151b20 0%,rgba(21,27,32,.05) 85%),url("assets/lab.webp");background-position:74% center}
+  #mywork .section-head{min-height:300px}
+  #mywork .section-title{font-size:clamp(37px,10vw,53px)}
+  #academy:before{height:520px;background-image:linear-gradient(90deg,rgba(237,236,232,.80),rgba(237,236,232,.52)),linear-gradient(0deg,#edece8 0%,rgba(237,236,232,.08) 70%),url("assets/academy.webp");background-position:75% top}
+  #academy .section-head{min-height:300px}
+  .poster-link{padding:22px;min-height:195px}
+  .poster-title{font-size:clamp(27px,9vw,40px)}
+  .project-top{font-size:8px;padding:5px 7px;right:8px;top:8px}
+  .student-cover .poster-link{min-height:185px}
+  .student-cover .poster-title{font-size:30px}
+  .case-site-link{padding:24px;gap:12px}
+  .case-site-brand{font-size:clamp(35px,9vw,60px)}
+  .case-site-caption{font-size:11px}
+  .case-site-kicker{font-size:8px}
+  .case-site-cta{font-size:10px}
+}
+</style>
+</head>
+<body>
+<div aria-hidden="true" class="top-progress" id="top-progress"></div>
+<header class="site-header">
+<div class="container navbar">
+<a aria-label="AI Academy — наверх" class="wordmark" href="#top"><span class="mark">A¹</span><span class="wordmark-type">AI <span>ACADEMY</span></span></a>
+<button aria-expanded="false" aria-label="Показать меню" class="nav-toggle" id="nav-toggle" type="button">☰</button>
+<nav aria-label="Навигация" class="nav-links" id="nav-links">
+<a href="#mywork">Мои проекты</a><a href="#academy">Работы участников</a><a href="#case">Реальный кейс</a><a href="#approach">Метод</a><a href="#offer">Для команд</a>
+<a class="nav-cta" href="https://forms.gle/Foe3cMyz4dERXFzU6" rel="noopener noreferrer" target="_blank">Обсудить проект ↗</a>
+</nav>
+</div>
+</header>
+<main>
+<section aria-labelledby="hero-title" class="hero" id="top">
+<div class="container hero-inner">
+<div class="hero-content">
+<div class="eyebrow"><span class="dot"></span>PROFIT EDUCATION DAY 2026 <span aria-hidden="true">/</span> ALMATY</div>
+<h1 id="hero-title"><small>AI Academy / AI в образовании</small>ОТ ПРОМПТОВ<br/>К <span class="future-word">РЕАЛЬНЫМ</span><br/>ПРОДУКТАМ.</h1>
+<p class="hero-lead">Приложения, сайты, диагностика и интерактивные тренажёры — от первых экспериментов до решений, которые можно открыть, проверить и использовать.</p>
+<div aria-label="Направления" class="hero-chips"><span class="hero-chip">01 / Learning design</span><span class="hero-chip">02 / AI &amp; no-code</span><span class="hero-chip">03 / Real delivery</span></div>
+<div class="hero-actions"><a class="button button-dark" href="#academy">Смотреть реальные работы <span aria-hidden="true">↗</span></a><a class="button button-stroke" href="#offer">Возможности для команд <span aria-hidden="true">→</span></a></div>
+</div>
+<div aria-hidden="true" class="hero-art"></div>
+<div class="hero-index"><span>ADILMURAT NAGASHPEKOV</span><i></i><span>SCROLL TO EXPLORE ↓</span></div>
+</div>
+<div aria-hidden="true" class="hero-ghost">ACADEMY</div>
+</section>
+<div aria-hidden="true" class="ticker"><div class="ticker-inner"><span>IDEA</span><i>✳</i><span>PROTOTYPE</span><i>✳</i><span>CHECK</span><i>✳</i><span>TEST</span><i>✳</i><span>REFINE</span><i>✳</i><span>LAUNCH</span><i>✳</i><span>IDEA</span><i>✳</i><span>PROTOTYPE</span><i>✳</i><span>CHECK</span><i>✳</i><span>TEST</span><i>✳</i><span>REFINE</span><i>✳</i><span>LAUNCH</span><i>✳</i></div></div>
+<section class="section dark statement-section" id="why">
+<div class="container">
+<div class="section-number reveal">00 / THE IDEA</div>
+<div class="statement-grid">
+<h2 class="statement-type reveal">СДЕЛАТЬ<br/>ТЕПЕРЬ <em>ПРОЩЕ.</em><br/>СДЕЛАТЬ ХОРОШО — <em>НЕТ.</em></h2>
+<div class="statement-card reveal"><p>ИИ умеет за минуты выдавать код, тексты и задания. Но <strong>первый ответ модели — ещё не образовательный продукт.</strong> Нужны методика, проверка, тестирование, удобная публикация и дальнейшая поддержка. Здесь — проекты, на которых этот подход можно увидеть.</p></div>
+</div>
+<div aria-label="Портфолио" class="fact-row reveal"><div class="fact"><strong>04</strong><span>Мои интерактивные демо</span></div><div class="fact"><strong>08</strong><span>Работ участников воркшопа</span></div><div class="fact"><strong>01</strong><span>Реальный коммерческий сайт</span></div></div>
+</div>
+</section>
+<section class="section dark" id="mywork">
+<div class="container">
+<div class="section-head"><div><div class="section-number reveal">01 / MY LAB</div><h2 class="section-title reveal">СНАЧАЛА —<br/>МОИ ЭКСПЕРИМЕНТЫ.</h2><p class="section-intro reveal">Образовательные продукты, в которых я соединял преподавание английского языка, учебный дизайн и разработку с ИИ. Каждый проект можно открыть и попробовать.</p></div><div class="meta line">Не презентации и не обещания.<br/>Настоящие интерактивные ссылки.</div></div>
+<div class="portfolio-grid">
+<article class="project-card reveal"><div class="project-cover"><span class="project-top">01 / IELTS / INTERACTIVE</span><a aria-label="Открыть проект IELTS: вводный модуль" class="poster-link poster-project" href="https://english-teacher-adil.github.io/ielts-intro---lesson/#screen-1" rel="noopener noreferrer" target="_blank"><span class="poster-kicker">IELTS / START</span><strong class="poster-title">IELTS: вводный модуль</strong><span class="poster-arrow">↗</span></a></div><div class="project-body"><h3>IELTS: вводный модуль</h3><p>Интерактивное знакомство со структурой экзамена и первым учебным опытом.</p><div class="project-actions"><a href="https://english-teacher-adil.github.io/ielts-intro---lesson/#screen-1" rel="noopener noreferrer" target="_blank">Открыть работающий проект ↗</a></div></div></article>
+<article class="project-card reveal"><div class="project-cover"><span class="project-top">02 / FCE / SPEAKING</span><a aria-label="Открыть проект B2 First: Speaking Trainer" class="poster-link poster-project" href="https://codepen.io/xzobdblg-the-solid/full/dPOeXoO" rel="noopener noreferrer" target="_blank"><span class="poster-kicker">B2 FIRST / SPEAKING</span><strong class="poster-title">B2 First: Speaking Trainer</strong><span class="poster-arrow">↗</span></a></div><div class="project-body"><h3>B2 First: Speaking Trainer</h3><p>Практика устной части: языковые функции и тренировка ответов.</p><div class="project-actions"><a href="https://codepen.io/xzobdblg-the-solid/full/dPOeXoO" rel="noopener noreferrer" target="_blank">Открыть работающий проект ↗</a></div></div></article>
+<article class="project-card reveal"><div class="project-cover"><span class="project-top">03 / B1 / ASSESSMENT</span><a aria-label="Открыть проект B1 Preliminary: Unit 3" class="poster-link poster-project" href="https://english-teacher-adil.github.io/B1-unit-3/" rel="noopener noreferrer" target="_blank"><span class="poster-kicker">B1 / PRACTICE</span><strong class="poster-title">B1 Preliminary: Unit 3</strong><span class="poster-arrow">↗</span></a></div><div class="project-body"><h3>B1 Preliminary: Unit 3</h3><p>Пример превращения учебного материала в самостоятельную цифровую практику.</p><div class="project-actions"><a href="https://english-teacher-adil.github.io/B1-unit-3/" rel="noopener noreferrer" target="_blank">Открыть работающий проект ↗</a></div></div></article>
+<article class="project-card reveal"><div class="project-cover"><span class="project-top">04 / GAME / PROTOTYPE</span><a aria-label="Открыть проект Snake Game" class="poster-link poster-project" href="https://codepen.io/xzobdblg-the-solid/full/raWmgmJ" rel="noopener noreferrer" target="_blank"><span class="poster-kicker">PLAY / SNAKE</span><strong class="poster-title">Snake Game</strong><span class="poster-arrow">↗</span></a></div><div class="project-body"><h3>Snake Game</h3><p>Небольшая игра как пример интерактивной механики, созданной в ходе экспериментов.</p><div class="project-actions"><a href="https://codepen.io/xzobdblg-the-solid/full/raWmgmJ" rel="noopener noreferrer" target="_blank">Открыть работающий проект ↗</a></div></div></article>
+</div>
+</div>
+</section>
+<section class="section light" id="academy">
+<div class="container">
+<div class="section-head"><div><div class="section-number reveal">02 / TEACHER WORKSHOP</div><h2 class="section-title reveal">ТЕПЕРЬ СОЗДАЮТ<br/>УЧАСТНИКИ МОИХ<br/>ВОРКШОПОВ.</h2><p class="section-intro reveal">Примеры проектов преподавателей, которые экспериментировали с созданием интерактивных материалов и веб-работ. Важно не только слушать об ИИ, но и уйти с собственным результатом.</p></div><div class="meta">08 / РАБОТ<br/>РЕАЛЬНЫЕ ВЕБ-ССЫЛКИ</div></div>
+<div aria-label="Фильтровать проекты" class="student-controls reveal" role="group"><button aria-pressed="true" class="filter active" data-filter="all" type="button">Все работы / 08</button><button aria-pressed="false" class="filter" data-filter="games" type="button">Игры и пазлы</button><button aria-pressed="false" class="filter" data-filter="learning" type="button">Учебные задания</button><button aria-pressed="false" class="filter" data-filter="other" type="button">Другие форматы</button></div>
+<div class="student-grid" id="student-grid">
+<article class="student-card reveal" data-category="games"><div class="student-cover"><span class="student-index">01 / WORKSHOP</span><a aria-label="Открыть работу участника Sport Challenge" class="poster-link poster-student" href="https://damira2205.github.io/sport-challenge/" rel="noopener noreferrer" target="_blank"><span class="poster-kicker">SPORT / GAME</span><strong class="poster-title">Sport Challenge</strong><span class="poster-arrow">↗</span></a></div><div class="student-body"><span class="type">Игровой формат</span><h3>Sport Challenge</h3><p>Интерактивная веб-работа участника. Нажмите, чтобы посмотреть оригинал.</p><div class="student-links"><a href="https://damira2205.github.io/sport-challenge/" rel="noopener noreferrer" target="_blank">Открыть проект ↗</a></div></div></article>
+<article class="student-card reveal" data-category="games"><div class="student-cover"><span class="student-index">02 / WORKSHOP</span><a aria-label="Открыть работу участника Puzzle" class="poster-link poster-student" href="https://dmbulut3-tech.github.io/puzzle/" rel="noopener noreferrer" target="_blank"><span class="poster-kicker">PUZZLE / LOGIC</span><strong class="poster-title">Puzzle</strong><span class="poster-arrow">↗</span></a></div><div class="student-body"><span class="type">Пазл</span><h3>Puzzle</h3><p>Интерактивная веб-работа участника. Нажмите, чтобы посмотреть оригинал.</p><div class="student-links"><a href="https://dmbulut3-tech.github.io/puzzle/" rel="noopener noreferrer" target="_blank">Открыть проект ↗</a></div></div></article>
+<article class="student-card reveal" data-category="learning"><div class="student-cover"><span class="student-index">03 / WORKSHOP</span><a aria-label="Открыть работу участника Interactive Test" class="poster-link poster-student" href="https://akumarzhanova.github.io/test/" rel="noopener noreferrer" target="_blank"><span class="poster-kicker">INTERACTIVE / TEST</span><strong class="poster-title">Interactive Test</strong><span class="poster-arrow">↗</span></a></div><div class="student-body"><span class="type">Учебный тест</span><h3>Interactive Test</h3><p>Интерактивная веб-работа участника. Нажмите, чтобы посмотреть оригинал.</p><div class="student-links"><a href="https://akumarzhanova.github.io/test/" rel="noopener noreferrer" target="_blank">Открыть проект ↗</a></div></div></article>
+<article class="student-card reveal" data-category="other"><div class="student-cover"><span class="student-index">04 / WORKSHOP</span><a aria-label="Открыть работу участника Music" class="poster-link poster-student" href="https://dashaarony.github.io/Music/" rel="noopener noreferrer" target="_blank"><span class="poster-kicker">MUSIC / WEB</span><strong class="poster-title">Music</strong><span class="poster-arrow">↗</span></a></div><div class="student-body"><span class="type">Музыкальный проект</span><h3>Music</h3><p>Интерактивная веб-работа участника. Нажмите, чтобы посмотреть оригинал.</p><div class="student-links"><a href="https://dashaarony.github.io/Music/" rel="noopener noreferrer" target="_blank">Открыть проект ↗</a></div></div></article>
+<article class="student-card reveal" data-category="games"><div class="student-cover"><span class="student-index">05 / WORKSHOP</span><a aria-label="Открыть работу участника Pazel" class="poster-link poster-student" href="https://amansultanbekuly-lab.github.io/pazel/" rel="noopener noreferrer" target="_blank"><span class="poster-kicker">PUZZLE / INTERACTIVE</span><strong class="poster-title">Pazel</strong><span class="poster-arrow">↗</span></a></div><div class="student-body"><span class="type">Интерактивный пазл</span><h3>Pazel</h3><p>Интерактивная веб-работа участника. Нажмите, чтобы посмотреть оригинал.</p><div class="student-links"><a href="https://amansultanbekuly-lab.github.io/pazel/" rel="noopener noreferrer" target="_blank">Открыть проект ↗</a></div></div></article>
+<article class="student-card reveal" data-category="learning"><div class="student-cover"><span class="student-index">06 / WORKSHOP</span><a aria-label="Открыть работу участника Natural World Vocabulary" class="poster-link poster-student" href="https://knurkasova01-cpu.github.io/naturalworldvocab/" rel="noopener noreferrer" target="_blank"><span class="poster-kicker">NATURE / VOCABULARY</span><strong class="poster-title">Natural World Vocabulary</strong><span class="poster-arrow">↗</span></a></div><div class="student-body"><span class="type">Лексика: природа</span><h3>Natural World Vocabulary</h3><p>Интерактивная веб-работа участника. Нажмите, чтобы посмотреть оригинал.</p><div class="student-links"><a href="https://knurkasova01-cpu.github.io/naturalworldvocab/" rel="noopener noreferrer" target="_blank">Открыть проект ↗</a></div></div></article>
+<article class="student-card reveal" data-category="learning"><div class="student-cover"><span class="student-index">07 / WORKSHOP</span><a aria-label="Открыть работу участника Altyn Orda Matching" class="poster-link poster-student" href="https://kani-program.github.io/altyn-orda-matching/" rel="noopener noreferrer" target="_blank"><span class="poster-kicker">HISTORY / MATCHING</span><strong class="poster-title">Altyn Orda Matching</strong><span class="poster-arrow">↗</span></a></div><div class="student-body"><span class="type">Сопоставление: история</span><h3>Altyn Orda Matching</h3><p>Интерактивная веб-работа участника. Нажмите, чтобы посмотреть оригинал.</p><div class="student-links"><a href="https://kani-program.github.io/altyn-orda-matching/" rel="noopener noreferrer" target="_blank">Открыть проект ↗</a></div></div></article>
+<article class="student-card reveal" data-category="other"><div class="student-cover"><span class="student-index">08 / WORKSHOP</span><a aria-label="Открыть работу участника Computer" class="poster-link poster-student" href="https://zhadra555.github.io/komputer/" rel="noopener noreferrer" target="_blank"><span class="poster-kicker">COMPUTER / WEB</span><strong class="poster-title">Computer</strong><span class="poster-arrow">↗</span></a></div><div class="student-body"><span class="type">Компьютерная тематика</span><h3>Computer</h3><p>Интерактивная веб-работа участника. Нажмите, чтобы посмотреть оригинал.</p><div class="student-links"><a href="https://zhadra555.github.io/komputer/" rel="noopener noreferrer" target="_blank">Открыть проект ↗</a></div></div></article>
+</div>
+<div class="disclaimer"><b>i</b><span>Каждая карточка открывает настоящий проект участника воркшопа в новой вкладке. Предварительные изображения заменены на названия: сами работы остаются на сайтах авторов.</span></div>
+</div>
+</section>
+<section class="section dark case-section" id="case">
+<div class="container case-layout">
+<div class="case-copy reveal"><div class="case-label">03 / BEYOND THE CLASSROOM</div><h2>ОТ УЧЕБНОГО<br/>ПРОТОТИПА<br/>К <em>ЖИВОМУ</em><br/>САЙТУ.</h2><p>Не только тренажёры и задания. Полноценный работающий сайт для фитнес-студии <strong style="color:#f4efec">AURELIA</strong> — реальный пример того, как идея превращается в опубликованный цифровой продукт.</p><ul class="case-list"><li>Задача реального бизнеса, не учебная симуляция</li><li>Дизайн, контент и разработка под конкретную аудиторию</li><li>Опубликованный сайт, доступный посетителям</li></ul><a class="button button-orange" href="https://aurelia.fitness/ru" rel="noopener noreferrer" target="_blank">Открыть работающий сайт ↗</a></div>
+<div class="case-window reveal"><div class="window-toolbar"><i></i><i></i><i></i><span>AURELIA.FITNESS / LIVE WEBSITE</span></div><div class="case-site-preview"><a aria-label="Открыть сайт AURELIA, действующий проект для фитнес-студии" class="case-site-link" href="https://aurelia.fitness/ru" rel="noopener noreferrer" target="_blank"><span class="case-site-kicker">LIVE PROJECT / FITNESS STUDIO</span><strong class="case-site-brand">AURELIA</strong><span class="case-site-caption">Полноценный сайт · aurelia.fitness/ru</span><span class="case-site-cta">Перейти на сайт ↗</span></a></div><button class="case-open-preview" data-title="AURELIA — настоящий сайт фитнес-студии" data-url="https://aurelia.fitness/ru" type="button">Попробовать просмотр внутри страницы ↗</button></div>
+</div>
+</section>
+<section class="section silver method-section" id="approach">
+<div class="container method-grid">
+<div class="method-side"><div class="section-number reveal">04 / THE SYSTEM</div><h2 class="section-title reveal">ПРОМПТ НЕ<br/>РАВЕН<br/>ПРОДУКТУ.</h2><p class="section-intro reveal">Главное открытие: генерировать быстро — полезно. Но качество рождается на следующих этапах. Именно здесь нужна педагогическая экспертиза, время и ответственность.</p><div class="method-endnote reveal">Важна не скорость первой генерации, а способность <strong>довести решение до результата, который выдерживает проверку и которым удобно пользоваться.</strong></div></div>
+<div aria-label="Процесс разработки" class="method-steps">
+<article class="method-step reveal"><span class="method-no">01</span><div><h3>Педагогическая задача</h3><p>Какой результат нужен ученику, преподавателю или команде?</p></div></article>
+<article class="method-step reveal"><span class="method-no">02</span><div><h3>Рабочий прототип</h3><p>ИИ помогает собрать первую версию приложения, теста или сайта.</p></div></article>
+<article class="method-step reveal"><span class="method-no">03</span><div><h3>Методическая проверка</h3><p>Проверяем корректность, уровень заданий, логику и качество обратной связи.</p></div></article>
+<article class="method-step reveal"><span class="method-no">04</span><div><h3>Тестирование</h3><p>Ищем ошибки, нечестные паттерны и проблемы в пользовательском опыте.</p></div></article>
+<article class="method-step reveal"><span class="method-no">05</span><div><h3>Исправление и публикация</h3><p>Дорабатываем продукт, размещаем его и планируем дальнейшие обновления.</p></div></article>
+</div>
+</div>
+</section>
+<section class="section dark" id="offer">
+<div class="container">
+<div class="section-head"><div><div class="section-number reveal">05 / WORK WITH TEAMS</div><h2 class="section-title reveal">НЕ ПРОСТО<br/>ОБЪЯСНИТЬ ИИ.<br/>НАУЧИТЬ <span style="color:var(--orange)">СОЗДАВАТЬ.</span></h2><p class="section-intro reveal">Форматы для школ, университетов и корпоративных команд: от первого практического воркшопа до разработки инструментов и выстраивания процесса их использования.</p></div></div>
+<div class="offer-grid">
+<article class="offer-card reveal"><div class="offer-icon">01 / SKILL BUILDING</div><h3>Практикумы по ИИ для педагогов</h3><p>Как перейти от обычных запросов к методически осмысленным заданиям, диагностике и интерактивным материалам.</p><div class="offer-output">Результат: собственные практические работы</div></article>
+<article class="offer-card reveal"><div class="offer-icon">02 / BUILD TOGETHER</div><h3>Вайб-кодинг для образовательных команд</h3><p>Создание мини-приложений, тренажёров, сайтов и прототипов с помощью ИИ — с проверкой, доработкой и публикацией.</p><div class="offer-output">Результат: работающий прототип</div></article>
+<article class="offer-card reveal"><div class="offer-icon">03 / QUALITY &amp; DELIVERY</div><h3>Сопровождение внедрения и качества</h3><p>Помощь в проектировании процессов: кто проверяет материалы, как тестировать продукты и где их публиковать и поддерживать.</p><div class="offer-output">Результат: понятный рабочий процесс</div></article>
+</div>
+<div class="offer-note reveal"><div><strong>Для руководителей</strong><p>Внедрение ИИ — это не только доступ к инструменту. Команде нужны время, обучение, правила проверки и ответственные за качество.</p></div><div><strong>Для педагогов и методистов</strong><p>Можно начать самостоятельно. Но устойчивые результаты приходят через регулярную практику, обратную связь и доработку.</p></div></div>
+</div>
+</section>
+<section class="contact-section" id="contact">
+<div class="container contact-layout"><div class="reveal"><div class="section-number">06 / LET'S MAKE IT REAL</div><h2>ЕСТЬ ИДЕЯ?<br/><em>ДАВАЙТЕ</em><br/>СОЗДАДИМ.</h2><p>Если вы представляете школу, университет или команду и хотите превратить ИИ из набора инструментов в реальную практику — обсудим задачу, формат обучения или пилотный проект.</p></div><div class="contact-card reveal"><span>START / COLLABORATION</span><h3>Рабочий результат начинается с разговора о вашей задаче.</h3><a class="button button-dark" href="https://forms.gle/Foe3cMyz4dERXFzU6" rel="noopener noreferrer" target="_blank">Оставить заявку ↗</a><div class="contact-social"><a href="https://www.linkedin.com/in/adilmurat-nagashpekov-596429283/" rel="noopener noreferrer" target="_blank">LinkedIn ↗</a><a href="https://t.me/Adilmurat" rel="noopener noreferrer" target="_blank">Telegram ↗</a></div></div></div>
+</section>
+</main>
+<footer class="site-footer"><div class="container footer-inner"><div><b>AI ACADEMY</b> · Адильмурат Нагашпеков · 2026</div><div class="sources">Независимая витрина проектов и практики. Внешние ссылки открывают сайты их авторов. Не является официальным сайтом АОО «Назарбаев Интеллектуальные школы».</div></div></footer>
+<aside aria-label="Интерактивный гид по сайту" class="floating-guide" id="floating-guide">
+<div class="guide-bubble"><button aria-label="Свернуть подсказку" class="guide-close" id="guide-close" type="button">×</button><span aria-live="polite" id="guide-message">Привет! Покажу, что получилось — листайте ниже.</span></div>
+<div class="guide-avatar"><img alt="Анимированный персонаж-гид" hidden="" id="guide-image" src="Welcome.png"/><span aria-hidden="true" class="guide-fallback" id="guide-fallback">AI</span></div>
+<button aria-label="Показать подсказку" class="guide-reopen" id="guide-reopen" type="button"><img alt="" hidden="" id="guide-button-image" src="Welcome.png"/><span aria-hidden="true" class="guide-fallback" id="guide-button-fallback">AI</span></button>
+</aside>
+<a class="mobile-cta" href="https://forms.gle/Foe3cMyz4dERXFzU6" rel="noopener noreferrer" target="_blank">Обсудить обучение или проект ↗</a>
+<dialog aria-labelledby="preview-title" class="preview-dialog" id="preview-dialog"><div class="preview-top"><h2 id="preview-title">Просмотр проекта</h2><div class="preview-actions"><a href="#" id="preview-external" rel="noopener noreferrer" target="_blank">Открыть ↗</a><button aria-label="Закрыть" class="preview-close" id="preview-close" type="button">×</button></div></div><iframe id="preview-frame" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-forms allow-same-origin allow-popups" title="Предварительный просмотр внешнего проекта"></iframe><div class="preview-bottom">Если исходный сайт запрещает встраивание, воспользуйтесь «Открыть ↗» в новой вкладке.</div></dialog>
+<script>
+(()=>{
+  'use strict';
+  const $=(s,ctx=document)=>ctx.querySelector(s);
+  const $$=(s,ctx=document)=>Array.from(ctx.querySelectorAll(s));
+  const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const menuToggle=$('#nav-toggle'),navLinks=$('#nav-links');
+  menuToggle.addEventListener('click',()=>{
+    const isOpen=navLinks.classList.toggle('show');menuToggle.setAttribute('aria-expanded',String(isOpen));menuToggle.textContent=isOpen?'×':'☰';
+  });
+  $$('.nav-links a').forEach(a=>a.addEventListener('click',()=>{
+    navLinks.classList.remove('show');menuToggle.setAttribute('aria-expanded','false');menuToggle.textContent='☰';
+  }));
+  let ticking=false;
+  const updateProgress=()=>{
+    const d=document.documentElement,scrollLength=d.scrollHeight-d.clientHeight;
+    $('#top-progress').style.width=`${scrollLength>0?(d.scrollTop/scrollLength)*100:0}%`;ticking=false;
+  };
+  window.addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(updateProgress);ticking=true}},{passive:true});updateProgress();
+  if('IntersectionObserver' in window && !reduceMotion){
+    const revealObserver=new IntersectionObserver((entries,o)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');o.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -25px 0px'});
+    $$('.reveal').forEach(el=>revealObserver.observe(el));
+  }else{$$('.reveal').forEach(el=>el.classList.add('visible'))}
+  $$('.filter').forEach(button=>button.addEventListener('click',()=>{
+    const category=button.dataset.filter;
+    $$('.filter').forEach(x=>{x.classList.toggle('active',x===button);x.setAttribute('aria-pressed',String(x===button))});
+    $$('.student-card').forEach(card=>{card.hidden=category!=='all'&&card.dataset.category!==category});
+  }));
+  // Optional live iframe for Aurelia only; all workshop and own projects open directly.
+  const dialog=$('#preview-dialog'),frame=$('#preview-frame'),title=$('#preview-title'),external=$('#preview-external');
+  function closePreview(){frame.src='about:blank';dialog.close();document.body.classList.remove('modal-open')}
+  $$('.case-open-preview').forEach(button=>button.addEventListener('click',()=>{
+    const url=button.dataset.url;
+    if(!url || !/^https:\/\//.test(url))return;
+    title.textContent=button.dataset.title||'Просмотр проекта'; external.href=url;
+    frame.src=url;
+    if(typeof dialog.showModal==='function'){dialog.showModal();document.body.classList.add('modal-open')}else window.open(url,'_blank','noopener');
+  }));
+  $('#preview-close').addEventListener('click',closePreview);
+  dialog.addEventListener('click',e=>{if(e.target===dialog)closePreview()});
+  dialog.addEventListener('close',()=>{frame.src='about:blank';document.body.classList.remove('modal-open')});
+  // Preserve the ORIGINAL custom illustration filenames and scroll-dependent behavior.
+  // The PNG files were referenced in the prior HTML but were not included in the upload.
+  // Once they are copied alongside index.html the actual character is shown automatically.
+  const guideStates={
+    top:{text:'Привет! Покажу, что получилось — листайте ниже.',image:'Welcome.png'},
+    why:{text:'Первый результат ИИ — ещё не готовый продукт.',image:'Thinking.png'},
+    mywork:{text:'Вот мои эксперименты. Можно открыть каждый!',image:'Pointing.png'},
+    academy:{text:'А здесь уже работы участников воркшопа!',image:'Celebration.png'},
+    case:{text:'Это действующий сайт для настоящего бизнеса.',image:'Correct.png'},
+    approach:{text:'Вот как я проверяю и довожу проекты до публикации.',image:'Thinking.png'},
+    offer:{text:'С этим подходом можно обучать целые команды.',image:'Pointing.png'},
+    contact:{text:'Если вам интересно сотрудничество — оставьте заявку!',image:'Welcome.png'}
+  };
+  const floating=$('#floating-guide'),guideMessage=$('#guide-message'),guideImage=$('#guide-image'),guideButtonImage=$('#guide-button-image');
+  const guideFallback=$('#guide-fallback'),guideButtonFallback=$('#guide-button-fallback');
+  let currentKey='top',loadSequence=0;
+  function setGuideState(key){
+    currentKey=key;const state=guideStates[key]||guideStates.top;
+    guideMessage.textContent=state.text;
+    const seq=++loadSequence;
+    const preloader=new Image();
+    preloader.onload=()=>{if(seq!==loadSequence)return;guideImage.src=state.image;guideButtonImage.src=state.image;guideImage.hidden=false;guideButtonImage.hidden=false;guideFallback.hidden=true;guideButtonFallback.hidden=true};
+    preloader.onerror=()=>{if(seq!==loadSequence)return;guideImage.hidden=true;guideButtonImage.hidden=true;guideFallback.hidden=false;guideButtonFallback.hidden=false};
+    preloader.src=state.image;
+  }
+  if('IntersectionObserver' in window){
+    const visible=new Map();const observer=new IntersectionObserver(entries=>{
+      entries.forEach(e=>visible.set(e.target.id,e.intersectionRatio));
+      const best=[...visible.entries()].filter(x=>x[1]>.04).sort((a,b)=>b[1]-a[1])[0];
+      if(best&&best[0]!==currentKey)setGuideState(best[0]);
+    },{threshold:[0,.07,.17,.30,.50,.70],rootMargin:'-18% 0px -42% 0px'});
+    Object.keys(guideStates).forEach(key=>{const el=document.getElementById(key);if(el)observer.observe(el)});
+  }
+  $('#guide-close').addEventListener('click',()=>floating.classList.add('is-collapsed'));
+  $('#guide-reopen').addEventListener('click',()=>floating.classList.remove('is-collapsed'));
+  if(window.innerWidth<580)floating.classList.add('is-collapsed');
+  setGuideState('top');
+})();
+</script>
+</body>
+</html>
